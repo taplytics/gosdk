@@ -4,4 +4,4 @@ go 1.15
 
 replace github.com/taplytics/go-sdk => ../openapi
 
-require github.com/taplytics/go-sdk v0.0.0-00010101000000-000000000000
+require github.com/taplytics/go-sdk v0.0.0-20210615184442-28168a0601a3
