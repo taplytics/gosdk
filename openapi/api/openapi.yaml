@@ -1,0 +1,1103 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: support@taplytics.com
+    name: Taplytics
+    url: https://taplytics.com
+  description: |-
+    The Taplytics Universal API is an API to quickly use Taplytics features and functionality at edge. This API allows the utilization of the Taplytics experimentation  functionality anywhere in the stack, both client- and server-side.
+
+    Each call to the Universal API requires two main parameters: token and user_id.
+    - token is unique to each Taplytics project and can be found under Settings -> Project Settings -> Taplytics SDK Key
+    - user_id is your custom defined user ID.
+
+    To be able to utilize the Universal API, please ensure that your Taplytics project is setup for usage. You may contact your Account Manager or support@taplytics.com for any questions.
+  title: Taplytics Universal API
+  version: "1.1"
+servers:
+- url: https://universal-api.taplytics.com/v1
+tags:
+- description: Bucketing related endpoints
+  name: Bucketing
+- description: Variable related endpoints
+  name: Variables
+- description: Variation related endpoints
+  name: Variations
+- description: Config related endpoints
+  name: Config
+- description: Feature flag related endpoints
+  name: Feature Flags
+paths:
+  /bucketing:
+    get:
+      description: Returns a key/value pairing of all experiments that the user has
+        been segmented into, as well as the variation the users are assigned.  If
+        there are no experiments currently being delivered to the user, an empty response
+        will be returned.
+      operationId: bucketing_get
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Flag to return object of experiments and variations with variables
+        explode: true
+        in: query
+        name: verbose
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: serialized attributes object
+        explode: true
+        in: query
+        name: attributes
+        required: true
+        schema:
+          $ref: '#/components/schemas/UserAttributes'
+        style: form
+      - description: serialized custom data object
+        explode: true
+        in: query
+        name: customData
+        required: true
+        schema:
+          $ref: '#/components/schemas/CustomData'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/bucketingResponse'
+          description: Based on the provided user attributes, returns the bucketing
+            information for the given user.
+      summary: Get Experiments and Variations for the user.
+      tags:
+      - Bucketing
+    post:
+      description: Returns a key/value pairing of all experiments that the user has
+        been segmented into, as well as the variation the users are assigned.  If
+        there are no experiments currently being delivered to the user, an empty response
+        will be returned.
+      operationId: bucketing_post
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Flag to return object of experiments and variations with variables
+        explode: true
+        in: query
+        name: verbose
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        $ref: '#/components/requestBodies/userData'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/bucketingResponse'
+          description: Based on the provided user attributes, returns the bucketing
+            information for the given user.
+      summary: Get Experiments and Variations for the user.
+      tags:
+      - Bucketing
+  /variablevalue:
+    get:
+      description: 'Value for given Taplytics code variable.  For more information
+        on setting up code variables, you may visit our code experiment setup documentation:
+        https://docs.taplytics.com/docs/guides-code-based-experiments'
+      operationId: variablevalue_get
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: name of variable
+        explode: true
+        in: query
+        name: varName
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: default value to be used if user does not have variable available.
+        explode: true
+        in: query
+        name: defaultValue
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: serialized attributes object
+        explode: true
+        in: query
+        name: attributes
+        required: true
+        schema:
+          $ref: '#/components/schemas/UserAttributes'
+        style: form
+      - description: serialized custom data object
+        explode: true
+        in: query
+        name: customData
+        required: true
+        schema:
+          $ref: '#/components/schemas/CustomData'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/variablevalueResponse'
+          description: Value for the requested dynamic variable, returns the default
+            value provided if not found.
+      summary: Get value for a Taplytics Variable
+      tags:
+      - Variables
+    post:
+      description: 'Value for given Taplytics code variable.  For more information
+        on setting up code variables, you may visit our code experiment setup documentation:
+        https://docs.taplytics.com/docs/guides-code-based-experiments'
+      operationId: variablevalue_post
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: name of variable
+        explode: true
+        in: query
+        name: varName
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: default value to be used if user does not have variable available.
+        explode: true
+        in: query
+        name: defaultValue
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        $ref: '#/components/requestBodies/userData'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/variablevalueResponse'
+          description: Value for the requested dynamic variable, returns the default
+            value provided if not found.
+      summary: Get value for a Taplytics Variable
+      tags:
+      - Variables
+  /variation:
+    get:
+      description: For a given experiment, determine whether or not a user is in the
+        experiment, and in which variation.  If the user is not in the experiment,
+        returns an empty response.
+      operationId: variation_get
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Name of an Experiment
+        explode: true
+        in: query
+        name: experimentName
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: serialized attributes object
+        explode: true
+        in: query
+        name: attributes
+        required: true
+        schema:
+          $ref: '#/components/schemas/UserAttributes'
+        style: form
+      - description: serialized custom data object
+        explode: true
+        in: query
+        name: customData
+        required: true
+        schema:
+          $ref: '#/components/schemas/CustomData'
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              examples:
+                response:
+                  $ref: '#/components/examples/variationResponse'
+          description: Name of the variation if user is within experiment. If not,
+            response is empty.
+      summary: Get Variation for a Taplytics Experiment
+      tags:
+      - Variations
+    post:
+      description: For a given experiment, determine whether or not a user is in the
+        experiment, and in which variation.  If the user is not in the experiment,
+        returns an empty response.
+      operationId: variation_post
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Name of an Experiment
+        explode: true
+        in: query
+        name: experimentName
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        $ref: '#/components/requestBodies/userData'
+      responses:
+        "200":
+          content:
+            text/plain:
+              examples:
+                response:
+                  $ref: '#/components/examples/variationResponse'
+          description: Name of the variation if user is within experiment. If not,
+            response is empty.
+      summary: Get Variation for a Taplytics Experiment
+      tags:
+      - Variations
+  /variables:
+    get:
+      description: Returns all code variables and their values for the given user.
+      operationId: variables_get
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: serialized attributes object
+        explode: true
+        in: query
+        name: attributes
+        required: true
+        schema:
+          $ref: '#/components/schemas/UserAttributes'
+        style: form
+      - description: serialized custom data object
+        explode: true
+        in: query
+        name: customData
+        required: true
+        schema:
+          $ref: '#/components/schemas/CustomData'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/variablesResponse'
+              schema:
+                items:
+                  $ref: '#/components/schemas/Variable'
+                type: array
+          description: All available variables to the user
+      summary: Get all active variables for user
+      tags:
+      - Variables
+    post:
+      description: Returns all code variables and their values for the given user.
+      operationId: variables_post
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        $ref: '#/components/requestBodies/userData'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/variablesResponse'
+              schema:
+                items:
+                  $ref: '#/components/schemas/Variable'
+                type: array
+          description: All available variables to the user
+      summary: Get all active variables for user
+      tags:
+      - Variables
+  /config:
+    get:
+      description: Returns the entire configuration for the project.  This is the
+        document that captures all experiment information for the entire project,
+        such as segmentation and active code variables.  Extremely verbose and should
+        be used for debugging.
+      operationId: config_get
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/configResponse'
+              schema:
+                type: object
+          description: Full Config for User
+      summary: Get Verbose Project Config Document for User
+      tags:
+      - Config
+    post:
+      description: Returns the entire configuration for the project.  This is the
+        document that captures all experiment information for the entire project,
+        such as segmentation and active code variables.  Extremely verbose and should
+        be used for debugging.
+      operationId: config_post
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/configResponse'
+              schema:
+                type: object
+          description: Full Config for User
+      summary: Get Verbose Project Config Document for User
+      tags:
+      - Config
+  /featureflags:
+    get:
+      description: 'Returns a list of objects that have the name and the key name
+        of the enabled Feature Flags for the user.  For more information on setting
+        up feature flags, you may visit our Launch Control documentation: https://docs.taplytics.com/docs/guides-feature-flag'
+      operationId: featureflags_get
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: serialized attributes object
+        explode: true
+        in: query
+        name: attributes
+        required: true
+        schema:
+          $ref: '#/components/schemas/UserAttributes'
+        style: form
+      - description: serialized custom data object
+        explode: true
+        in: query
+        name: customData
+        required: true
+        schema:
+          $ref: '#/components/schemas/CustomData'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/featureflagsResponse'
+          description: Based on the provided user attributes, returns the feature
+            flags enabled for this user
+      summary: Get enabled Feature Flags for the user
+      tags:
+      - Feature Flags
+    post:
+      description: 'Returns a list of objects that have the name and the key name
+        of the enabled Feature Flags for the user.  For more information on setting
+        up feature flags, you may visit our Launch Control documentation: https://docs.taplytics.com/docs/guides-feature-flag'
+      operationId: featureflags_post
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        $ref: '#/components/requestBodies/userData'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/featureflagsResponse'
+          description: Based on the provided user attributes, returns the feature
+            flags enabled for this user
+      summary: Get enabled Feature Flags for the user
+      tags:
+      - Feature Flags
+  /isfeatureflagenabled:
+    get:
+      description: Returns true or false based on if the Feature Flag key passed in
+        maps to a Feature Flag that is currently enabled for the user.
+      operationId: isfeatureflagenabled_get
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: key for the feature flag you want to check
+        explode: true
+        in: query
+        name: featureFlagKey
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: serialized attributes object
+        explode: true
+        in: query
+        name: attributes
+        required: true
+        schema:
+          $ref: '#/components/schemas/UserAttributes'
+        style: form
+      - description: serialized custom data object
+        explode: true
+        in: query
+        name: customData
+        required: true
+        schema:
+          $ref: '#/components/schemas/CustomData'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/isfeatureflagenabledResponse'
+          description: Based on the feature flag key passed in, returns if it is enabled
+      summary: Get if feature flag is enabled
+      tags:
+      - Feature Flags
+    post:
+      description: Returns true or false based on if the Feature Flag key passed in
+        maps to a Feature Flag that is currently enabled for the user.
+      operationId: isfeatureflagenabled_post
+      parameters:
+      - description: SDK token for the project
+        explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: ID for current user
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: key for the feature flag you want to check
+        explode: true
+        in: query
+        name: featureFlagKey
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        $ref: '#/components/requestBodies/userData'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                response:
+                  $ref: '#/components/examples/isfeatureflagenabledResponse'
+          description: Based on the feature flag key passed in, returns if it is enabled
+      summary: Get if feature flag is enabled
+      tags:
+      - Feature Flags
+components:
+  examples:
+    configResponse:
+      value:
+        expVars:
+          "5b296e23cfd24e000c5ffeae": 5b296e23cfd24e000c5ffeb0
+        expNames:
+          Example Experiment: Variation 1
+        projectData:
+          _id: 590ba9c36cc16b002dc6e8e2
+          name: Taplytics Edge API Example
+          deviceToken: ""
+          token: _
+          credentials:
+            apns:
+              cert:
+                certificateName: ""
+            apnsSandbox:
+              cert:
+                certificateName: ""
+          settings:
+            showDraftExperiments: false
+            showLaunchImage: true
+            launchImageTime: 2
+            enabledForReleaseModes:
+              appStore: false
+              enterprise: false
+              adHoc: true
+              dev: true
+              unknown: false
+            cancelLiveUpdateBuilds: []
+            killForBuilds: []
+            isFuzzyMatchingEnabled: false
+            pushAnalyticsSources:
+              intercom: false
+              mixpanel: false
+              googleAnalytics: false
+              flurry: false
+              localytics: false
+              apsalar: false
+              parse: false
+              adobe: false
+              crashlytics: false
+              kissMetrics: false
+              heap: false
+              amplitude: false
+              segment: false
+            disabledFeatures:
+            - viewFlow
+            - storeKit
+            - crashlytics
+            - errors
+        experiments:
+        - _id: 5b296e23cfd24e000c5ffeae
+          name: Example Experiment
+          rollout:
+            start: 100
+            target: 100
+            startIndex: 2226
+            randKey: rand3
+            targetDate: null
+            startDate: null
+          status: active
+          distFilters: []
+          variations:
+          - _id: baseline
+            name: baseline
+            elements: []
+            dynamicVariables:
+            - name: Example Variable
+              isActive: true
+              createdFrom: web
+              defaultValue: Foo
+              variableType: String
+              value: Foo
+              _id: 5b4f600d13308e000c2f2a94
+            distributionPercent: 0
+          - _id: 5b296e23cfd24e000c5ffeb0
+            name: Variation 1
+            elements: []
+            dynamicVariables:
+            - name: Example Variable
+              isActive: true
+              createdFrom: web
+              defaultValue: Foo
+              variableType: String
+              value: Bar
+              _id: 5b4f600d13308e000c2f2a93
+            distributionPercent: 1
+            distFilters: []
+          - _id: 5b4f5fe1d7e2f1005a9b650d
+            name: Variation 2
+            elements:
+            - _id: 5b4f5fe1d7e2f1005a9b650e
+            dynamicVariables:
+            - name: Example Variable
+              isActive: true
+              createdFrom: web
+              defaultValue: Foo
+              variableType: String
+              value: FooBar
+              _id: 5b4f5fe1d7e2f1005a9b650f
+            distributionPercent: 0
+            distFilters: []
+          distributionStartIndex: 0.6633595416360856
+          dateStarted: 2018-07-18T15:43:48.120Z
+        - _id: 5b4fbfd2f17725013a31fda4
+          name: Example Experiment 2
+          rollout:
+            start: 100
+            target: 100
+            startIndex: 2989
+            randKey: rand3
+            startDate: null
+            targetDate: null
+          status: active
+          distFilters:
+          - values:
+            - 25
+            comparator: =
+            type: age
+            dataKey: null
+          variations:
+          - _id: baseline
+            name: baseline
+            elements: []
+            dynamicVariables: []
+            distributionPercent: 0
+          - _id: 5b4fbfd2f17725013a31fda6
+            name: Variation 1
+            elements: []
+            dynamicVariables: []
+            distributionPercent: 1
+            distFilters: []
+          distributionStartIndex: 0.09206984613845837
+          dateStarted: 2018-07-18T22:32:33.860Z
+        regions: []
+        dynamicVars:
+          Example Variable:
+            name: Example Variable
+            isActive: true
+            createdFrom: web
+            defaultValue: Foo
+            variableType: String
+            value: Bar
+            _id: 5b4f600d13308e000c2f2a93
+        images: {}
+        viewElements: {}
+        views:
+          ProductDetailActivity:
+            _id: 590baa77f07e800039198540
+            name: ProductDetailActivity
+            key: ProductDetailActivity
+            android: true
+          ShoppingBagActivity:
+            _id: 590baae86cc16b002dc6ef53
+            name: ShoppingBagActivity
+            key: ShoppingBagActivity
+            android: true
+          HomeActivity:
+            _id: 590bac9ff07e80003919884d
+            name: HomeActivity
+            key: HomeActivity
+            android: true
+          GenderGateActivity:
+            _id: 590c6dc46ee2ac008176f736
+            name: GenderGateActivity
+            key: GenderGateActivity
+            android: true
+          CategoryDetailActivity:
+            _id: 590c6e79752316005c36f024
+            name: CategoryDetailActivity
+            key: CategoryDetailActivity
+            android: true
+          LoginJoinActivity:
+            _id: 590caf5d8baf6f005d995dbe
+            name: LoginJoinActivity
+            key: LoginJoinActivity
+            android: true
+    isfeatureflagenabledResponse:
+      value: true
+    featureflagsResponse:
+      value:
+      - name: Feature Flag 1
+        keyName: featureFlag1
+      - name: Create New Feature Flag Feature
+        keyName: createNewFeatureFlagFeature
+      - name: New Feature Flag
+        keyName: newFeatureFlag
+      - name: Age Feature Flag
+        keyName: newFeatureFlag
+    bucketingResponse:
+      value:
+        Experiment Name 1: Variation 1
+        Second Experiment: Variation 4
+    variablevalueResponse:
+      value:
+        Example JSON variable value: Example JSON variable value
+    variablesResponse:
+      value:
+      - Example String Variable: Foo
+      - Example Number Variable: 5
+    variationResponse:
+      value: Variation 1
+  parameters:
+    token_querystring:
+      description: SDK token for the project
+      explode: true
+      in: query
+      name: token
+      required: true
+      schema:
+        type: string
+      style: form
+    featureFlagKey_querystring:
+      description: key for the feature flag you want to check
+      explode: true
+      in: query
+      name: featureFlagKey
+      required: true
+      schema:
+        type: string
+      style: form
+    userId_querystring:
+      description: ID for current user
+      explode: true
+      in: query
+      name: user_id
+      required: true
+      schema:
+        type: string
+      style: form
+    verbose_querystring:
+      description: Flag to return object of experiments and variations with variables
+      explode: true
+      in: query
+      name: verbose
+      required: false
+      schema:
+        type: boolean
+      style: form
+    varName_querystring:
+      description: name of variable
+      explode: true
+      in: query
+      name: varName
+      required: true
+      schema:
+        type: string
+      style: form
+    experimentName_querystring:
+      description: Name of an Experiment
+      explode: true
+      in: query
+      name: experimentName
+      required: true
+      schema:
+        type: string
+      style: form
+    defaultValue_querystring:
+      description: default value to be used if user does not have variable available.
+      explode: true
+      in: query
+      name: defaultValue
+      required: true
+      schema:
+        type: string
+      style: form
+    attributes_querystring:
+      description: serialized attributes object
+      explode: true
+      in: query
+      name: attributes
+      required: true
+      schema:
+        $ref: '#/components/schemas/UserAttributes'
+      style: form
+    customData_querystring:
+      description: serialized custom data object
+      explode: true
+      in: query
+      name: customData
+      required: true
+      schema:
+        $ref: '#/components/schemas/CustomData'
+      style: form
+  requestBodies:
+    userData:
+      content:
+        application/jason:
+          schema:
+            $ref: '#/components/schemas/UserAttributesWithCustomData'
+      description: All user attributes and optional custom data
+  responses:
+    configSuccess:
+      content:
+        application/json:
+          examples:
+            response:
+              $ref: '#/components/examples/configResponse'
+          schema:
+            type: object
+      description: Full Config for User
+    featureflagsSuccess:
+      content:
+        application/json:
+          examples:
+            response:
+              $ref: '#/components/examples/featureflagsResponse'
+      description: Based on the provided user attributes, returns the feature flags
+        enabled for this user
+    isfeatureflagenabledSuccess:
+      content:
+        application/json:
+          examples:
+            response:
+              $ref: '#/components/examples/isfeatureflagenabledResponse'
+      description: Based on the feature flag key passed in, returns if it is enabled
+    variablesSuccess:
+      content:
+        application/json:
+          examples:
+            response:
+              $ref: '#/components/examples/variablesResponse'
+          schema:
+            items:
+              $ref: '#/components/schemas/Variable'
+            type: array
+      description: All available variables to the user
+    variationSuccess:
+      content:
+        text/plain:
+          examples:
+            response:
+              $ref: '#/components/examples/variationResponse'
+      description: Name of the variation if user is within experiment. If not, response
+        is empty.
+    variablevalueSuccess:
+      content:
+        application/json:
+          examples:
+            response:
+              $ref: '#/components/examples/variablevalueResponse'
+      description: Value for the requested dynamic variable, returns the default value
+        provided if not found.
+    bucketingSuccess:
+      content:
+        application/json:
+          examples:
+            response:
+              $ref: '#/components/examples/bucketingResponse'
+      description: Based on the provided user attributes, returns the bucketing information
+        for the given user.
+  schemas:
+    CustomData:
+      example:
+        Custom data 1: 5
+        Custom data 2: Example
+      type: object
+    UserAttributes:
+      properties:
+        email:
+          example: foobar@taplytics.com
+          type: string
+        firstName:
+          example: Vic
+          type: string
+        lastName:
+          example: Vu
+          type: string
+        name:
+          example: Vic Vu
+          type: string
+        age:
+          example: 25
+          type: number
+      type: object
+    UserAttributesWithCustomData:
+      properties:
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/UserAttributes'
+          - properties:
+              customData:
+                $ref: '#/components/schemas/CustomData'
+            type: object
+      type: object
+    Variable:
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          description: Can be any value - string, number, boolean, or object.
+          type: string
+      type: object
