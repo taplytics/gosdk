@@ -2,6 +2,6 @@ module example.com/go/example
 
 go 1.15
 
-replace github.com/taplytics/go_sdk => ../
+replace github.com/taplytics/gosdk => ../
 
-require github.com/taplytics/go_sdk v0.0.0-20210615184442-28168a0601a3
+require github.com/taplytics/gosdk v0.0.0-00010101000000-000000000000
