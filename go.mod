@@ -1,4 +1,4 @@
-module github.com/taplytics/go-sdk
+module github.com/taplytics/go_sdk
 
 go 1.13
 
