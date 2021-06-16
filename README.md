@@ -18,24 +18,10 @@ For more information, please visit [https://taplytics.com](https://taplytics.com
 
 ## Installation
 
-Install the following dependencies:
+Install the SDK using:
 
 ```shell
-go get github.com/stretchr/testify/assert
-go get golang.org/x/oauth2
-go get golang.org/x/net/context
-```
-
-Put the package under your project folder and add the following in import:
-
-```golang
-import sw "./openapi"
-```
-
-To use a proxy, set the environment variable `HTTP_PROXY`:
-
-```golang
-os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
+go get github.com/taplytics/gosdk
 ```
 
 ## Configuration of Server URL
@@ -83,22 +69,22 @@ ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables
 
 All URIs are relative to *https://universal-api.taplytics.com/v1*
 
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-*BucketingApi* | [**BucketingGet**](docs/BucketingApi.md#bucketingget) | **Get** /bucketing | Get Experiments and Variations for the user.
-*BucketingApi* | [**BucketingPost**](docs/BucketingApi.md#bucketingpost) | **Post** /bucketing | Get Experiments and Variations for the user.
-*ConfigApi* | [**ConfigGet**](docs/ConfigApi.md#configget) | **Get** /config | Get Verbose Project Config Document for User
-*ConfigApi* | [**ConfigPost**](docs/ConfigApi.md#configpost) | **Post** /config | Get Verbose Project Config Document for User
-*FeatureFlagsApi* | [**FeatureflagsGet**](docs/FeatureFlagsApi.md#featureflagsget) | **Get** /featureflags | Get enabled Feature Flags for the user
-*FeatureFlagsApi* | [**FeatureflagsPost**](docs/FeatureFlagsApi.md#featureflagspost) | **Post** /featureflags | Get enabled Feature Flags for the user
-*FeatureFlagsApi* | [**IsfeatureflagenabledGet**](docs/FeatureFlagsApi.md#isfeatureflagenabledget) | **Get** /isfeatureflagenabled | Get if feature flag is enabled
-*FeatureFlagsApi* | [**IsfeatureflagenabledPost**](docs/FeatureFlagsApi.md#isfeatureflagenabledpost) | **Post** /isfeatureflagenabled | Get if feature flag is enabled
-*VariablesApi* | [**VariablesGet**](docs/VariablesApi.md#variablesget) | **Get** /variables | Get all active variables for user
-*VariablesApi* | [**VariablesPost**](docs/VariablesApi.md#variablespost) | **Post** /variables | Get all active variables for user
-*VariablesApi* | [**VariablevalueGet**](docs/VariablesApi.md#variablevalueget) | **Get** /variablevalue | Get value for a Taplytics Variable
-*VariablesApi* | [**VariablevaluePost**](docs/VariablesApi.md#variablevaluepost) | **Post** /variablevalue | Get value for a Taplytics Variable
-*VariationsApi* | [**VariationGet**](docs/VariationsApi.md#variationget) | **Get** /variation | Get Variation for a Taplytics Experiment
-*VariationsApi* | [**VariationPost**](docs/VariationsApi.md#variationpost) | **Post** /variation | Get Variation for a Taplytics Experiment
+| Class             | Method                                                                           | HTTP request                   | Description                                  |
+| ----------------- | -------------------------------------------------------------------------------- | ------------------------------ | -------------------------------------------- |
+| *BucketingApi*    | [**BucketingGet**](docs/BucketingApi.md#bucketingget)                            | **Get** /bucketing             | Get Experiments and Variations for the user. |
+| *BucketingApi*    | [**BucketingPost**](docs/BucketingApi.md#bucketingpost)                          | **Post** /bucketing            | Get Experiments and Variations for the user. |
+| *ConfigApi*       | [**ConfigGet**](docs/ConfigApi.md#configget)                                     | **Get** /config                | Get Verbose Project Config Document for User |
+| *ConfigApi*       | [**ConfigPost**](docs/ConfigApi.md#configpost)                                   | **Post** /config               | Get Verbose Project Config Document for User |
+| *FeatureFlagsApi* | [**FeatureflagsGet**](docs/FeatureFlagsApi.md#featureflagsget)                   | **Get** /featureflags          | Get enabled Feature Flags for the user       |
+| *FeatureFlagsApi* | [**FeatureflagsPost**](docs/FeatureFlagsApi.md#featureflagspost)                 | **Post** /featureflags         | Get enabled Feature Flags for the user       |
+| *FeatureFlagsApi* | [**IsfeatureflagenabledGet**](docs/FeatureFlagsApi.md#isfeatureflagenabledget)   | **Get** /isfeatureflagenabled  | Get if feature flag is enabled               |
+| *FeatureFlagsApi* | [**IsfeatureflagenabledPost**](docs/FeatureFlagsApi.md#isfeatureflagenabledpost) | **Post** /isfeatureflagenabled | Get if feature flag is enabled               |
+| *VariablesApi*    | [**VariablesGet**](docs/VariablesApi.md#variablesget)                            | **Get** /variables             | Get all active variables for user            |
+| *VariablesApi*    | [**VariablesPost**](docs/VariablesApi.md#variablespost)                          | **Post** /variables            | Get all active variables for user            |
+| *VariablesApi*    | [**VariablevalueGet**](docs/VariablesApi.md#variablevalueget)                    | **Get** /variablevalue         | Get value for a Taplytics Variable           |
+| *VariablesApi*    | [**VariablevaluePost**](docs/VariablesApi.md#variablevaluepost)                  | **Post** /variablevalue        | Get value for a Taplytics Variable           |
+| *VariationsApi*   | [**VariationGet**](docs/VariationsApi.md#variationget)                           | **Get** /variation             | Get Variation for a Taplytics Experiment     |
+| *VariationsApi*   | [**VariationPost**](docs/VariationsApi.md#variationpost)                         | **Post** /variation            | Get Variation for a Taplytics Experiment     |
 
 
 ## Documentation For Models
