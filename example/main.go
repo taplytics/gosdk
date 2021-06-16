@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	openapi "github.com/taplytics/go-sdk"
+	openapi "github.com/taplytics/go_sdk"
 )
 
 func main() {
